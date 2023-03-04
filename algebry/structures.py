@@ -70,7 +70,7 @@ class Matrix:
 
         return representation_string
 
-    def read_matrix_from_file(self, filepath=''):
+    def read_from_file(self, filepath=''):
         try:
             with open(filepath, 'r') as file:
                 lines = file.read().splitlines()
@@ -87,9 +87,9 @@ class Matrix:
         except Exception as err:
             raise ValueError('Invalid matrix format')
 
-    def write_matrix_to_file(self, filepath=''):
+    def save_to_file(self, filepath=''):
         try:
-            if not self.matrix:
+            if not hasattr(self, 'matrix'):
                 raise ValueError('No matrix to write')
 
             with open(filepath, 'a+') as file:
@@ -100,9 +100,10 @@ class Matrix:
     def randomize_matrix(self, rows_counter, columns_counter, min_value=0, max_value=10000):
         if rows_counter >= 1 and columns_counter >= 1 and 0 <= min_value < max_value:
             self.matrix = generate_random_numbers_matrix(rows_counter, columns_counter, min_value, max_value)
+            print("self.matrix")
             self.rows_counter, self.columns_counter = rows_counter, columns_counter
         else:
-            raise ValueError('Incorrect values')
+            raise ValueError('Incorrect input values')
 
     def zeros_matrix(self, rows_counter, columns_counter):
         if rows_counter >= 1 and columns_counter >= 1:
@@ -169,7 +170,7 @@ class Vector:
         except Exception as err:
             raise err
 
-    def write_to_file(self, filepath=''):
+    def save_to_file(self, filepath=''):
         try:
             if not self.vector:
                 raise ValueError('Nothing to write')
